@@ -1,3 +1,5 @@
+var DiceThrow = Backbone.Model.extend({});
+
 function successTest(dice, targetNumber) {
 	var cup = new DiceCup();
 	cup.fill({
@@ -9,14 +11,18 @@ function successTest(dice, targetNumber) {
 		return dice.get('value');
 	}));
 
-	var result = {};
-	result.all = numbers;
-	result.min = _(numbers).min();
-	result.max = _(numbers).max();
-	result.successes = _(numbers).select((function(num) {
-		return num >= targetNumber;
-	}));
-	return result;
+	var diceThrow = new DiceThrow;
+	diceThrow.set({
+		'all': numbers,
+		'min': _(numbers).min(),
+		'max': _(numbers).max(),
+		'successes': _(numbers).select((function(num) {
+			return num >= targetNumber;
+		}))
+
+	});
+
+	return diceThrow;
 }
 
 var result = successTest(10, 5);
